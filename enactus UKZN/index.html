@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enactus UKZN | Entrepreneurial Action Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        enactus: {
+                            gold: '#FFC222',
+                            gray: '#494949',
+                            dark: '#212121',
+                            light: '#f4f4f4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hero Gradient overlay - Enactus Gold to Dark */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(255, 194, 34, 0.85) 0%, rgba(33, 33, 33, 0.9) 100%);
+        }
+
+        /* Card Hover Effects */
+        .project-card:hover .card-image {
+            transform: scale(1.1);
+        }
+        
+        /* Blob Animation Background */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-md transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <div class="flex items-center space-x-2">
+                    <div class="text-2xl font-heading font-bold text-enactus-gray tracking-tighter">
+                        <img 
+    src="/images/logo.png" 
+    alt="Enactus UKZN" 
+    class="h-12 w-auto"
+  />
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-700 hover:text-enactus-gold font-semibold transition">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-enactus-gold font-semibold transition">About</a>
+                    <a href="#impact" class="text-gray-700 hover:text-enactus-gold font-semibold transition">Impact</a>
+                    <a href="#projects" class="text-gray-700 hover:text-enactus-gold font-semibold transition">Projects</a>
+                    <a href="#join" class="px-5 py-2 bg-enactus-gold text-gray-900 rounded-full font-bold hover:bg-enactus-gray hover:text-white transition shadow-lg transform hover:-translate-y-0.5">
+                        Join Us
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-enactus-gold focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-inner">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-enactus-gold hover:bg-gray-50">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-enactus-gold hover:bg-gray-50">About</a>
+                <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-enactus-gold hover:bg-gray-50">Impact</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-enactus-gold hover:bg-gray-50">Projects</a>
+                <a href="#join" class="block px-3 py-2 mt-4 text-center rounded-md text-base font-bold bg-enactus-gold text-gray-900">Join The Team</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="images/team.jpg" alt="Students working" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Animated Background Blobs -->
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-enactus-gray rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-blob"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-enactus-gold rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-blob animation-delay-2000"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-up">
+            <span class="block text-enactus-gold font-bold tracking-widest uppercase mb-4">Inspiring Greatness</span>
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6 leading-tight">
+                Entrepreneurial <br> Action <span class="text-enactus-gold">Us.</span>
+            </h1>
+            <p class="text-xl text-gray-100 mb-10 max-w-2xl mx-auto font-light">
+                We are a community of students, academic and business leaders committed to using the power of entrepreneurial action to transform lives.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="px-8 py-3 bg-enactus-gold text-gray-900 font-bold rounded-full shadow-lg hover:bg-white transition transform hover:scale-105">
+                    View Our Projects
+                </a>
+                <a href="#about" class="px-8 py-3 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-gray-900 transition">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-s1 md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in-left">
+                    <h4 class="text-enactus-gold font-bold uppercase tracking-wide mb-2">About Us</h4>
+                    <h2 class="text-4xl font-heading font-bold text-gray-900 mb-6">Head for Business. <br>Heart for the World.</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Enactus UKZN is part of an international non-profit organization dedicated to inspiring students to improve the world through entrepreneurial action. We provide a platform for teams of outstanding university students to create community development projects that put people's own ingenuity and talents at the center of improving their livelihoods.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-enactus-gold mr-3"></i> Sustainable Development
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-enactus-gold mr-3"></i> Student Leadership
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-enactus-gold mr-3"></i> Innovation & Entrepreneurship
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative fade-up">
+                    <div class="absolute -inset-4 bg-enactus-gold rounded-xl opacity-30 transform rotate-3"></div>
+                    <img src="images/happy.jpg" alt="Team meeting" class="relative rounded-xl shadow-2xl w-full object-cover h-96">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Statistics (Counters) -->
+    <!--<section id="impact" class="py-16 bg-enactus-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="stat-item fade-up">
+                    <div class="text-5xl font-heading font-bold text-enactus-gold mb-2 counter" data-target="120">0</div>
+                    <div class="text-sm uppercase tracking-widest text-gray-400">Active Members</div>
+                </div>
+                <div class="stat-item fade-up" style="transition-delay: 100ms;">
+                    <div class="text-5xl font-heading font-bold text-white mb-2 counter" data-target="8">0</div>
+                    <div class="text-sm uppercase tracking-widest text-gray-400">Active Projects</div>
+                </div>
+                <div class="stat-item fade-up" style="transition-delay: 200ms;">
+                    <div class="text-5xl font-heading font-bold text-enactus-gold mb-2 counter" data-target="3500">0</div>
+                    <div class="text-sm uppercase tracking-widest text-gray-400">Lives Impacted</div>
+                </div>
+                <div class="stat-item fade-up" style="transition-delay: 300ms;">
+                    <div class="text-5xl font-heading font-bold text-white mb-2 counter" data-target="15">0</div>
+                    <div class="text-sm uppercase tracking-widest text-gray-400">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-enactus-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h4 class="text-enactus-gray font-bold uppercase tracking-wide mb-2">Our Work</h4>
+                <h2 class="text-4xl font-heading font-bold text-gray-900">Current Initiatives</h2>
+                <div class="w-24 h-1 bg-enactus-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden group cursor-pointer fade-up">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Agriculture Project" class="card-image w-full h-full object-cover transition duration-500">
+                    </div>
+                    <div class="p-6 relative">
+                        <div class="absolute -top-6 right-6 bg-enactus-gold text-gray-900 p-3 rounded-full shadow-md">
+                            <i class="fas fa-seedling text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-enactus-gold transition">Agri-Sustain</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Empowering local farmers in KZN through vertical sack farming techniques and market access strategies.</p>
+                        <span class="text-enactus-gray font-bold text-sm uppercase tracking-wider group-hover:text-enactus-gold transition">Read Case Study &rarr;</span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Call to Action / Join Section -->
+    <section id="join" class="py-20 bg-enactus-gray relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+             <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="#FFC222"></path>
+             </svg>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-6">Ready to Make a Difference?</h2>
+            <p class="text-xl text-gray-300 mb-8">Join a network of leaders who are committed to using business as a force for good. Be part of the Enactus UKZN legacy.</p>
+            <button class="bg-enactus-gold text-gray-900 text-lg font-bold py-4 px-10 rounded-full shadow-2xl hover:bg-white hover:text-gray-900 transition transform hover:-translate-y-1 border-2 border-transparent hover:border-enactus-gold">
+                Apply for Membership
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-enactus-dark text-white pt-16 pb-8 border-t-4 border-enactus-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-2xl font-heading font-bold text-white mb-4">
+                        enactus <span class="text-enactus-gold">UKZN</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        University of KwaZulu-Natal<br>
+                        Westville Campus, Durban<br>
+                        South Africa
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/enactusZA?__tn__=%3C" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-enactus-gold hover:text-gray-900 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/enactusukzn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-enactus-gold hover:text-gray-900 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/enactusukzn_/" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-enactus-gold hover:text-gray-900 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://za.linkedin.com/company/enactus-ukzn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-enactus-gold hover:text-gray-900 transition"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-enactus-gold">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white transition">Our Projects</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">News & Events</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-enactus-gold">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400"><i class="fas fa-envelope mr-2"></i> mhlongom2@ukzn.ac.za</li>
+                        <li class="text-gray-400"><i class="fas fa-phone mr-2"></i> +27 31 260 8605</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">&copy; 2025 Enactus UKZN. All Rights Reserved. Inspiring Greatness.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --- Intersection Observer for Scroll Animations ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // If the entry is a counter, start counting
+                    if (entry.target.classList.contains('stat-item')) {
+                        const counter = entry.target.querySelector('.counter');
+                        if(counter) runCounter(counter);
+                    }
+
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        // Select elements to animate
+        document.querySelectorAll('.fade-up, .slide-in-left, .stat-item').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // --- Number Counter Animation ---
+        function runCounter(el) {
+            const target = +el.getAttribute('data-target');
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+
+            let current = 0;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.innerText = target;
+                    if(target > 1000) el.innerText = "3.5k+"; // Specific formatting for large numbers
+                    clearInterval(timer);
+                } else {
+                    el.innerText = Math.ceil(current);
+                }
+            }, 16);
+        }
+
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+                nav.classList.replace('bg-white/95', 'bg-white');
+            } else {
+                nav.classList.remove('shadow-lg');
+                nav.classList.replace('bg-white', 'bg-white/95');
+            }
+        });
+    </script>
+</body>
+</html>
